@@ -1171,5 +1171,65 @@
     },{threshold:.12});
     items.forEach(el=>io.observe(el));
   </script>
+  
+<!-- WEDDING MUSIC PLAYER -->
+<audio id="weddingMusic" loop preload="none">
+  <source src="wedding-music.mp3" type="audio/mpeg">
+</audio>
+
+<button
+  id="musicToggle"
+  type="button"
+  aria-label="Play wedding music"
+  onclick="toggleWeddingMusic()"
+  style="
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    z-index:9999;
+    display:none;
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:1px solid #b59b69;
+    background:#f7f3eb;
+    color:#526553;
+    font-size:22px;
+    cursor:pointer;
+    box-shadow:0 3px 15px rgba(0,0,0,0.12);
+  "
+>♪</button>
+
+<script>
+  const weddingMusic = document.getElementById("weddingMusic");
+  const musicToggle = document.getElementById("musicToggle");
+
+  weddingMusic.volume = 0.35;
+
+  async function startWeddingMusic() {
+    musicToggle.style.display = "block";
+
+    try {
+      await weddingMusic.play();
+      musicToggle.textContent = "♫";
+      musicToggle.setAttribute("aria-label", "Pause wedding music");
+    } catch (error) {
+      musicToggle.textContent = "♪";
+      musicToggle.setAttribute("aria-label", "Play wedding music");
+    }
+  }
+
+  function toggleWeddingMusic() {
+    if (weddingMusic.paused) {
+      startWeddingMusic();
+    } else {
+      weddingMusic.pause();
+      musicToggle.textContent = "♪";
+      musicToggle.setAttribute("aria-label", "Play wedding music");
+    }
+  }
+</script>
+
+  
 </body>
 </html>
